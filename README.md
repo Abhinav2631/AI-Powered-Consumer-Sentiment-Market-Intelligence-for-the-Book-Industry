@@ -1,33 +1,143 @@
 # AI-Powered Consumer Sentiment & Market Intelligence for the Book Industry
 
-This project repository covers a data pipeline and prototype interface for analysing consumer feedback about books and publishing. The documented workflow includes data collection, cleaning, sentiment/topic/aspect labels, and an exploratory retrieval-augmented generation (RAG) interface.
+## 📌Project Overview
 
-## Workflow documented in this repository
+This project builds an AI-driven market intelligence system that analyzes large volumes of consumer feedback related to the book market (e-commerce, social media, and news) to uncover:
 
-1. **Data collection:** public YouTube book-review comments, news articles, and book metadata.
-2. **Preprocessing:** clean and normalise text into a common format.
-3. **Sentiment and topic analysis:** organise feedback into sentiment, topic, and aspect fields.
-4. **RAG exploration:** retrieve relevant feedback to support question answering and prototype market-insight views.
+🔹Customer sentiment (positive / negative / neutral)
 
-## Technology stack
+🔹Key topics and aspects (e.g., platform experience, story quality, pricing)
 
-Python, Requests, Pandas, NLTK, YouTube Data API, NewsAPI, LangChain, ChromaDB, Hugging Face Sentence Transformers, Groq API, and Streamlit.
+🔹Emerging trends and complaints
 
-## Setup
+🔹Actionable business insights via a Retrieval-Augmented Generation (RAG) system
 
-1. Create a Python virtual environment.
-2. Install the packages listed in `requirements.txt`.
-3. Configure the API credentials listed in `.env.example` using your own provider keys.
-4. Start the Streamlit application with the command documented by the project setup.
+The system is designed to act as a smart assistant for market and product teams, enabling natural language querying over real customer feedback.
 
-Never commit private API keys or credentials.
+## 🧩Module 1: Data Collection & Preprocessing
 
-## Project status
+📊 Data Sources
 
-This repository includes source files and datasets for the documented workflow. The RAG/dashboard integration and deployment status should be checked against the current code before treating the project as production-ready.
+🔹YouTube comments related to book reviews
 
-## Source and attribution
+🔹News articles related to books, publishing, and reading trends
 
-This repository is a GitHub fork of [AI-Powered Consumer Sentiment & Market Intelligence for the Book Industry by Shahya1310](https://github.com/Shahya1310/AI-Powered-Consumer-Sentiment-Market-Intelligence-for-the-Book-Industry). The current public fork retains the upstream implementation and datasets with a revised project README; it should not be represented as a fully independent implementation from scratch. Credit for the upstream source remains with its original creator.
+🔹Publicly available e-commerce/book metadata (Google Books API as a proxy source)
 
-Any original code, data transformations, experiments, or modules added later should be documented clearly in the relevant files and commits.
+🛠 Tools & Libraries
+
+🔸Python
+
+🔸Requests
+
+🔸Pandas
+
+🔸NLTK
+
+🔸Google YouTube Data API
+
+🔸NewsAPI
+
+### 💠Description
+
+This module handles raw data ingestion from multiple sources and applies text cleaning and normalization to prepare the data for downstream ML tasks.
+All raw text is unified into a common schema and stored as a cleaned corpus.
+
+📤 Output
+
+Raw data:
+
+🔹data/raw/youtube_book_comments.csv
+
+🔹data/raw/news_articles.csv
+
+🔹data/raw/ecommerce_books.csv
+
+Processed data:
+
+🔹data/processed/cleaned_text.csv
+
+## 🧠Module 2: Sentiment Analysis & Topic / Aspect Extraction
+
+📌Description
+
+This module enriches the cleaned feedback using an LLM-based pipeline to extract:
+
+🔹Sentiment (positive / negative / neutral)
+
+🔹Topic (e.g., platform_experience, story_quality, genre_preference)
+
+🔹Aspect (specific issue or praise such as “app crashes”, “weak plot”)
+
+This transforms raw feedback into a structured market intelligence dataset suitable for retrieval and analytics.
+
+📤 Output
+
+Enriched dataset:
+
+🔹sentiment_analysis/book_market_sentiment_topics.csv
+
+  (contains: clean_text, sentiment, topic, aspect)
+
+### 🔎Module 3: RAG Pipeline & Insights Dashboards (Milestone 3)
+
+📌Description
+
+This module implements a Retrieval-Augmented Generation (RAG) pipeline to enable natural language querying over the enriched feedback corpus.
+A prototype insights dashboard is built to visualize sentiment and topic trends.
+
+## 🛠Tech Stack
+
+🔸LangChain (RAG orchestration)
+
+🔸ChromaDB (Vector Database; Pinecone-compatible architecture)
+
+🔸HuggingFace Sentence Transformers (Embeddings)
+
+🔸Groq API (LLM backend – LLaMA 3.1)
+
+🔸Streamlit (Dashboard UI prototype)
+
+📤 Output
+
+▫️Vector database built from enriched feedback
+
+▫️Working RAG-based Q&A system
+
+▫️Prototype dashboards for:
+
+▫️Sentiment distribution
+
+▫️Topic trends
+
+▫️Top complaints and themes
+
+### 📈 Project Status (Milestones)
+
+✅ Milestone 1 (Weeks 1–2): Setup & Data Pipeline
+
+Data collection from YouTube, news, and e-commerce sources completed. Cleaning, normalization, and unified schema implemented.
+
+✅ Milestone 2 (Weeks 3–4): Sentiment & Topic Models
+
+LLM-based sentiment, topic, and aspect extraction completed on 2,000+ feedback records. Enriched dataset generated.
+
+🟡 Milestone 3 (Weeks 5–6): RAG & Dashboards
+
+RAG pipeline implemented using LangChain + vector DB. Prototype dashboards built; UI-to-RAG integration in progress.
+
+⬜ Milestone 4 (Weeks 7–8): Alerts & Deployment
+
+Planned: alerting, report exports, and cloud deployment.
+
+### 🚀Future Enhancements
+
+💠Brand-specific platform analysis (e.g., Amazon, Kindle, Goodreads)
+
+💠Real-time data ingestion & streaming updates
+
+💠Automated alerts for emerging negative trends
+
+💠Deployment on cloud infrastructure
+
+💠Switching vector backend to Pinecone for large-scale production use
